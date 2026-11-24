@@ -1,0 +1,351 @@
+/* ===================================================
+   QuickCart — Style Sheet
+   Clean minimal design with blue/white colour scheme
+   =================================================== */
+
+/* ----- CSS Variables ----- */
+:root {
+    --primary: #2c7be5;
+    --primary-dark: #1a5bbf;
+    --bg: #f5f7fa;
+    --white: #ffffff;
+    --text: #333333;
+    --text-light: #666666;
+    --border: #e0e0e0;
+    --danger: #e74c3c;
+    --success: #27ae60;
+    --success-bg: #eafaf1;
+    --radius: 8px;
+}
+
+/* ----- Reset & Base ----- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Segoe UI", Arial, sans-serif;
+    background-color: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+}
+
+/* ----- Header ----- */
+header {
+    background-color: var(--primary);
+    color: var(--white);
+    text-align: center;
+    padding: 20px 0;
+}
+
+header h1 {
+    font-size: 28px;
+    margin-bottom: 4px;
+}
+
+header p {
+    font-size: 14px;
+    opacity: 0.85;
+}
+
+/* ----- Main Container (Two-Column Layout) ----- */
+.container {
+    display: flex;
+    gap: 30px;
+    max-width: 960px;
+    margin: 30px auto;
+    padding: 0 20px;
+    align-items: flex-start;
+}
+
+/* Left column: products */
+#products-section {
+    flex: 1;
+    min-width: 0;
+}
+
+/* Right column: cart + checkout */
+#right-column {
+    flex: 1.3;
+    min-width: 0;
+}
+
+/* ----- Section Headings ----- */
+#products-section h2,
+#cart-section h2,
+#checkout-section h2,
+#confirmation-section h2 {
+    font-size: 20px;
+    margin-bottom: 15px;
+    color: var(--text);
+}
+
+/* ----- Product Cards ----- */
+.product-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 15px;
+    margin-bottom: 15px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+/* Book cover placeholder */
+.book-cover {
+    width: 100%;
+    height: 120px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 48px;
+    margin-bottom: 12px;
+}
+
+.book-cover-1 {
+    background: #4a90d9;
+}
+
+.book-cover-2 {
+    background: #d4a44c;
+}
+
+.product-info h3 {
+    font-size: 16px;
+    margin-bottom: 6px;
+}
+
+.price {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 10px;
+}
+
+/* ----- Buttons ----- */
+.btn-add {
+    background-color: var(--primary);
+    color: var(--white);
+    border: none;
+    padding: 8px 16px;
+    border-radius: var(--radius);
+    cursor: pointer;
+    font-size: 14px;
+    width: 100%;
+}
+
+.btn-add:hover {
+    background-color: var(--primary-dark);
+}
+
+#place-order-btn {
+    background-color: var(--primary);
+    color: var(--white);
+    border: none;
+    padding: 10px 20px;
+    border-radius: var(--radius);
+    cursor: pointer;
+    font-size: 16px;
+    width: 100%;
+    margin-top: 10px;
+}
+
+#place-order-btn:hover {
+    background-color: var(--primary-dark);
+}
+
+/* ----- Cart Section ----- */
+#cart-section {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 15px;
+    margin-bottom: 15px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+#empty-cart-msg {
+    color: var(--text-light);
+    font-style: italic;
+    text-align: center;
+    padding: 10px 0;
+}
+
+/* Individual cart item row */
+.cart-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border);
+}
+
+.cart-item:last-child {
+    border-bottom: none;
+}
+
+.cart-item-name {
+    flex: 1;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+/* Quantity controls */
+.qty-controls {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0 15px;
+}
+
+.btn-qty {
+    width: 28px;
+    height: 28px;
+    border: 1px solid var(--border);
+    background: var(--bg);
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+}
+
+.btn-qty:hover {
+    background: var(--border);
+}
+
+.qty-value {
+    min-width: 20px;
+    text-align: center;
+    font-weight: 600;
+}
+
+/* Line total for each cart item */
+.cart-item-total {
+    font-weight: 600;
+    min-width: 60px;
+    text-align: right;
+    margin-right: 10px;
+}
+
+/* Remove button */
+.btn-remove {
+    background: none;
+    border: none;
+    color: var(--danger);
+    cursor: pointer;
+    font-size: 18px;
+    padding: 0 4px;
+}
+
+.btn-remove:hover {
+    color: #c0392b;
+}
+
+/* Order total bar */
+#order-total {
+    text-align: right;
+    padding-top: 10px;
+    margin-top: 10px;
+    border-top: 2px solid var(--primary);
+    font-size: 16px;
+}
+
+/* ----- Checkout Section ----- */
+#checkout-section {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 15px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.form-group {
+    margin-bottom: 10px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 5px;
+}
+
+.required {
+    color: var(--danger);
+}
+
+#customer-name {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    font-size: 14px;
+}
+
+#customer-name:focus {
+    outline: none;
+    border-color: var(--primary);
+}
+
+/* ----- Inline Error Messages ----- */
+.error-msg {
+    color: var(--danger);
+    font-size: 13px;
+    margin: 5px 0 0;
+    min-height: 0;
+}
+
+/* ----- Disabled Button State ----- */
+#place-order-btn:disabled {
+    background-color: #a0a0a0;
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+/* ----- Confirmation Section ----- */
+#confirmation-section {
+    background: var(--success-bg);
+    border: 2px solid var(--success);
+    border-radius: var(--radius);
+    padding: 20px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+#confirmation-section h2 {
+    color: var(--success);
+    margin-bottom: 10px;
+}
+
+#confirmation-section h3 {
+    font-size: 16px;
+    margin: 12px 0 8px;
+}
+
+/* Confirmation item rows */
+.conf-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 4px 0;
+    font-size: 14px;
+}
+
+.conf-total {
+    margin-top: 12px;
+    padding-top: 10px;
+    border-top: 2px solid var(--success);
+    font-size: 16px;
+    text-align: right;
+}
+
+/* ----- Footer ----- */
+footer {
+    text-align: center;
+    padding: 20px;
+    color: var(--text-light);
+    font-size: 13px;
+}
