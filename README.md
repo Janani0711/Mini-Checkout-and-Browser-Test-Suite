@@ -1,137 +1,184 @@
-# QuickCart — Mini Checkout System
+# QuickCart – Mini Checkout System
 
-A lightweight, functional single-page online shopping checkout website developed for the **Fynd Hiring Hackathon**.
+## Project Overview
 
-Customers can browse two synthetic book products, manage their shopping cart with real-time recalculations, input customer details, and securely place orders with duplicate prevention.
+QuickCart is a simple, single-page online shopping checkout application developed for the **Fynd Hiring Hackathon**.
 
----
+The application allows customers to browse two products, add items to a shopping cart, manage quantities, calculate the order total and complete checkout by entering their name.
 
-## 🌟 Project Evolution & Value-Added Enhancements (Phase 1 → Phase 2)
-
-To demonstrate iterative software engineering and quality assurance best practices, this project was developed and refined across two planned phases:
-
-### Phase 1: Baseline MVP (Core Requirements)
-- **Product & Cart Basics**: Synthetic products (`The Art of Letting Go` at ₹499 and `Think and Grow Rich` at ₹399) with full quantity increment/decrement/removal controls and automatic total calculations.
-- **Initial Validation**: Standard validation using browser `alert()` pop-ups for empty cart and blank name fields.
-- **Core Automation**: 3 automated Selenium browser test checks (Successful Checkout, Missing Name, Quantity Total Calculation).
-
-### Phase 2: Professional UX & Production-Grade Improvements (Extra Features)
-Rather than stopping at the baseline MVP, we introduced critical improvements to make the application production-ready:
-1. **Contextual Inline Error Messages (No Annoying Alerts)**:
-   - Replaced browser `alert()` pop-ups with clean, contextual inline error messages appearing directly below the affected elements (inside cart and under the customer name input).
-   - Preserves user input so customers can easily correct mistakes and retry without lost progress.
-2. **Immediate Button Disabling on Submission**:
-   - The "Place Order" button disables immediately upon submission (`disabled = true`, distinct greyed-out styling, and `cursor: not-allowed`), preventing accidental or rapid double-clicks.
-3. **Structured Unique Order Reference Generation**:
-   - Implemented a production-style order reference generator:
-     ```javascript
-     function generateOrderRef() {
-         var timestamp = Date.now();
-         var random = Math.random().toString(36).substring(2, 8).toUpperCase();
-         return "ORD-" + timestamp + "-" + random;
-     }
-     ```
-   - Produces a unique, traceable order identifier (`ORD-<timestamp>-<random>`) shown in the confirmation breakdown.
-4. **4th Automated Selenium Test (Duplicate Order Guard)**:
-   - Added an automated test specifically testing duplicate submission prevention by verifying that rapid or repeated execution of the submission logic does not generate duplicate orders or alter order data.
-
----
+It also handles common checkout errors and prevents duplicate order submissions. Automated browser testing is implemented using Python and Selenium to verify the main checkout functionalities.
 
 ## Technologies Used
 
 | Technology | Purpose |
 |---|---|
-| **HTML5** | Semantic structure, accessible two-column layout |
-| **CSS3** | Clean minimal blue/white theme, responsive cards, disabled button state |
-| **Vanilla JavaScript** | State management, live recalculations, inline validation, order generator |
-| **Python + Selenium** | End-to-end automated browser testing (4 automated checks) |
+| HTML5 | Structure of the webpage |
+| CSS3 | Layout, styling and responsive design |
+| JavaScript | Cart management, calculations and validation |
+| Python | Automated test scripts |
+| Selenium WebDriver | Browser automation and testing |
+| unittest | Execution of automated test cases |
 
-- **Zero External Dependencies**: Runs entirely in any modern web browser from local files (no server, database, or payment gateway required).
-
----
+The application does not require a backend, database or payment gateway. It runs locally in a web browser.
 
 ## Project Structure
 
-```
+```text
 Checkout system/
-├── index.html           — Semantic page structure & templates
-├── style.css            — Styling, layout & interactive states
-├── script.js            — Cart state, inline validation & order logic
+│
+├── index.html
+├── style.css
+├── script.js
+│
 ├── tests/
-│   └── test_checkout.py — 4 automated Selenium browser tests
-├── test_plan.md         — Comprehensive test plan & execution report
-└── README.md            — Project documentation & setup guide
+│   └── test_checkout.py
+│
+├── README.md
+└── test_plan.md
 ```
 
----
+## Installation and Setup
 
-## Installation & Execution
+### Prerequisites
 
-### 1. Running the Web Application
-1. Download or clone this repository.
-2. Open `index.html` directly in Google Chrome or any modern browser:
-   - Double-click `index.html`, OR
-   - Right-click `index.html` → **Open With** → **Google Chrome**.
+- Python 3.x
+- Google Chrome
+- Visual Studio Code (recommended)
 
-### 2. Running Automated Selenium Tests
-Ensure Python 3.x and Google Chrome are installed:
+### Running the Application
+
+1. Download or clone the project repository.
+2. Open the project folder.
+3. Locate `index.html`.
+4. Double-click the file or open it using Google Chrome.
+
+### Setting Up Automated Tests
+
+Install Selenium using the following command:
+
 ```bash
-# 1. Install Selenium
 pip install selenium
+```
 
-# 2. Navigate to tests folder and run unittest
+### Running the Tests
+
+Open the terminal inside the project folder and execute:
+
+```bash
 cd tests
 python -m unittest test_checkout -v
 ```
 
----
+Selenium WebDriver will launch Chrome and execute the automated test cases.
 
-## Application Features & Business Rules
+## Application Features
 
-### 1. Product Section
-- Fixed synthetic products:
-  - *The Art of Letting Go* — ₹499
-  - *Think and Grow Rich* — ₹399
-- Each product card contains the book title, formatted price, placeholder book visual, and an "Add to Cart" action.
+### 1. Product Listing
 
-### 2. Shopping Cart & Real-Time Calculation
-- Add products, increase/decrease quantities, or remove items.
-- Real-time formula enforcement:
-  $$\text{Line Total} = \text{Product Price} \times \text{Quantity}$$
-  $$\text{Order Total} = \sum \text{Line Totals}$$
+The application contains two products with fixed prices:
 
-### 3. Customer Information & Inline Validation
-- Customer Name field (required).
-- **Empty Cart Validation**: Highlights inline message in cart if customer tries checking out without items.
-- **Missing Name Validation**: Displays clear inline red text under the name input.
-- **Input Preservation**: Cart items and previously entered text remain intact during validation errors.
+| Product | Price |
+|---|---:|
+| The Art of Letting Go | ₹499 |
+| Think and Grow Rich | ₹399 |
 
-### 4. Order Confirmation & Duplicate Prevention
-- Generates a unique reference: `ORD-<timestamp>-<random>` (e.g., `ORD-1764000123456-7K9X2P`).
-- Displays summary: customer name, items purchased, quantities, line totals, and grand total.
-- Clears the cart upon successful order placement.
-- Button disabling combined with internal `isSubmitting` flag guarantees no duplicate orders can be created.
+Each product is displayed with its name, price and an Add to Cart button.
 
----
+### 2. Shopping Cart Management
 
-## Automated Test Suite Summary (4/4 Passed)
+Customers can:
 
-| # | Automated Test Case | Assertion & Validation | Result |
-|---|---------------------|------------------------|--------|
-| 1 | `test_successful_checkout_shows_confirmation` | Verifies confirmation section visibility, customer name, total, and `ORD-<timestamp>-<random>` reference format | ✅ Pass |
-| 2 | `test_missing_name_blocks_checkout` | Verifies checkout is blocked on empty name, inline error is displayed, and button remains active for retry | ✅ Pass |
-| 3 | `test_quantity_change_updates_total` | Verifies line & order total dynamically recalculate from ₹499 to ₹998 upon quantity increment | ✅ Pass |
-| 4 | `test_duplicate_submission_prevented` | Verifies button disables upon submission and repeated submission invocations do not duplicate order confirmations | ✅ Pass |
+- Add products to the shopping cart.
+- Increase or decrease product quantities.
+- Remove products from the cart.
+- View individual product totals.
+- View the updated order total.
 
----
+All calculations are updated automatically whenever the cart changes.
 
-## Manual Test Scenarios
+**Calculation formulas:**
 
-Refer to [`test_plan.md`](test_plan.md) for full steps, expectations, and actual results for all 10 verified test cases including empty cart, double-click protection, and quantity edge cases.
+Line Total = Product Price × Quantity
 
----
+Order Total = Sum of All Line Totals
 
-## Acknowledgements & AI Assistance
+### 3. Customer Details and Validation
 
-- **AI Tools Used**: ChatGPT was used as an AI pair-programming assistant to help architect the solution, write clean beginner-friendly code, structure the Selenium automated test suite, and document test plans and verification steps.
+The checkout section includes a required Customer Name field.
 
+The application handles the following situations:
+
+- Empty cart: Checkout is prevented when no products have been added.
+- Missing customer name: Checkout is prevented when the name field is left blank.
+- Error messages: Relevant validation messages are displayed directly on the webpage.
+- Input preservation: Existing cart items and customer information are retained when validation fails.
+
+### 4. Order Confirmation
+
+After successful checkout, the application:
+
+- Displays an order confirmation message.
+- Generates a unique order reference.
+- Displays the customer's name.
+- Shows the purchased products and quantities.
+- Displays the final order total.
+- Clears the shopping cart.
+
+The order reference follows this format:
+
+`ORD-<timestamp>-<random>`
+
+Example: `ORD-1764000123456-7K9X2P`
+
+### 5. Duplicate Order Prevention
+
+The application uses a JavaScript submission-state variable (`isSubmitting`) to prevent the same checkout from being processed multiple times.
+
+The Place Order button is also disabled after a successful submission to prevent accidental repeated clicks.
+
+## Automated Browser Testing
+
+The project includes four automated test cases developed using Python, Selenium WebDriver and unittest.
+
+| No. | Test Case | Expected Result |
+|---|---|---|
+| 1 | Successful checkout | Order confirmation appears with customer details, total and reference number. |
+| 2 | Missing name validation | Checkout is blocked and an appropriate error message appears. |
+| 3 | Quantity calculation | Order total updates correctly when product quantity changes. |
+| 4 | Duplicate submission prevention | Repeated submission does not generate another order confirmation. |
+
+Each test starts with a fresh browser session to ensure independent execution.
+
+## Manual Testing
+
+Additional manual testing is performed to verify the customer checkout journey.
+
+The test scenarios include:
+
+- Attempting checkout with an empty cart.
+- Attempting checkout without entering a customer name.
+- Adding and removing products.
+- Increasing and decreasing quantities.
+- Verifying individual product totals.
+- Checking the overall order total.
+- Completing a successful checkout.
+- Checking the generated order reference.
+- Testing rapid repeated clicks on Place Order.
+
+Refer to `test_plan.md` for the detailed test steps, expected results and actual observations.
+
+## Test Results
+
+The automated test execution results and manual testing observations are documented in `test_plan.md`.
+
+The test results should reflect the actual output obtained during execution.
+
+## Conclusion
+
+QuickCart demonstrates the basic functionality of an online checkout system, including product selection, shopping cart management, accurate calculations, input validation and order confirmation.
+
+The project also uses Selenium-based browser automation to verify important checkout scenarios and improve application reliability.
+
+## AI Assistance
+
+ChatGPT was used as an AI pair-programming assistant during development to understand implementation approaches, improve code structure, prepare automated test cases and organize project documentation. The application was tested locally using the browser and Python-based automated tests.
